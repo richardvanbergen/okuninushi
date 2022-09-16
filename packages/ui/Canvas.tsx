@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useRef, VFC } from 'react'
 
-export const Canvas: VFC = props => {
+export const Canvas: VFC<{
+  width: number
+  height: number
+}> = props => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
+  const { width, height, ...rest } = props
+
   const draw = useCallback((ctx, frameCount) => {
+    console.log('draw')
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     ctx.fillStyle = '#000000'
     ctx.beginPath()
@@ -30,7 +36,7 @@ export const Canvas: VFC = props => {
         window.cancelAnimationFrame(animationFrameId)
       }
     }
-  }, [draw])
+  }, [canvasRef, draw])
 
-  return <canvas {...props} />
+  return <canvas ref={canvasRef} width={width} height={height} {...rest} />
 }

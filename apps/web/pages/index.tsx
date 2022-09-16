@@ -1,10 +1,10 @@
-import { Button } from 'ui'
+import { Canvas } from 'ui'
 
 export default function Web() {
   return (
     <div>
       <h1>Web</h1>
-      <Button />
+      <Canvas width={1000} height={1000} />
     </div>
   )
 }
