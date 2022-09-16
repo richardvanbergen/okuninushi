@@ -1,4 +1,4 @@
-import { Canvas } from 'ui'
+import { Canvas } from '@okuni/ui'
 
 export default function Web() {
   return (
