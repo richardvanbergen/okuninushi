@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, VFC } from "react"
+import { useCallback, useEffect, useRef, VFC } from 'react'
 
 export const Canvas: VFC = props => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
