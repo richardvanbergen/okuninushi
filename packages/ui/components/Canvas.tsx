@@ -38,5 +38,5 @@ export const Canvas: VFC<{
     }
   }, [canvasRef, draw])
 
-  return <canvas ref={canvasRef} width={width} height={height} {...rest} />
+  return <canvas className="bg-red-700" ref={canvasRef} width={width} height={height} {...rest} />
 }
