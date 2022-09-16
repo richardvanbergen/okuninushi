@@ -1480,9 +1480,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-custom@*, eslint-config-custom@workspace:packages/eslint-config-custom":
+"eslint-config-custom@*, eslint-config-custom@workspace:config/eslint-config-custom":
   version: 0.0.0-use.local
-  resolution: "eslint-config-custom@workspace:packages/eslint-config-custom"
+  resolution: "eslint-config-custom@workspace:config/eslint-config-custom"
   dependencies:
     eslint: ^7.23.0
     eslint-config-next: ^12.0.8
@@ -3879,9 +3879,9 @@ prettier@latest:
   languageName: node
   linkType: hard
 
-"tsconfig@*, tsconfig@workspace:packages/tsconfig":
+"tsconfig@*, tsconfig@workspace:config/tsconfig":
   version: 0.0.0-use.local
-  resolution: "tsconfig@workspace:packages/tsconfig"
+  resolution: "tsconfig@workspace:config/tsconfig"
   languageName: unknown
   linkType: soft
 
