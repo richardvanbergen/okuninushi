@@ -1,0 +1,18 @@
+{
+  "name": "@okuni/engine",
+  "version": "0.0.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint *.ts",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@okuni/eslint-config": "*",
+    "@okuni/typescript-config": "*",
+    "eslint": "^7.32.0",
+    "typescript": "^4.5.2",
+    "vitest": "^0.23.4"
+  }
+}
