@@ -1,7 +1,7 @@
 import {
   isGrammarType,
   isPrimitive,
-} from '../formula'
+} from './formula'
 
 import type {
   ParsedFormula,
@@ -15,7 +15,7 @@ import type {
   ParsedNumber,
   ParsedComparison,
   ParsedComparator, ParsedScopedReference
-} from '../formula'
+} from './formula'
 
 export type ResolvedValue = {
   value: unknown,

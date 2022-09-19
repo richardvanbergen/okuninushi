@@ -1,5 +1,5 @@
 import { createResultResolver } from './formula/resultResolver'
-import { parse } from './formula'
+import { parse } from './formula/formula'
 
 export default function createField(name: string, formula: string, inputs: Record<string, unknown> = {}) {
   const resolve = createResultResolver(inputs)

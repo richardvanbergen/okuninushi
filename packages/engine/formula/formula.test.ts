@@ -1,6 +1,6 @@
 import {
   parse,
-} from '../formula'
+} from './formula'
 
 import {
   flatten
@@ -16,7 +16,7 @@ import {
   ParsedReference,
   ParsedScopedReference,
   ParsedString
-} from '../formula'
+} from './formula'
 
 import { expect, test } from 'vitest'
 

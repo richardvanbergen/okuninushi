@@ -1,4 +1,4 @@
-import { isGrammarType } from '../formula'
+import { isGrammarType } from './formula'
 
 import type {
   ParsedArithmetic,
@@ -6,7 +6,7 @@ import type {
   ParsedFunction,
   ParsedGrammar,
   ParsedReference
-} from '../formula'
+} from './formula'
 
 export type GraphState = Map<string, {
   color: 'white' | 'gray' | 'black',

@@ -1,6 +1,6 @@
 // @ts-expect-error no types
 import { Grammar, Parser } from 'nearley'
-import grammar from './formula/grammar-nearley'
+import grammar from './grammar-nearley'
 
 export type GrammarPrimitive = 'boolean' | 'number'  | 'plus' | 'minus' | 'times' | 'divide' | 'exponent' | 'string' | 'equals' | 'not_equals' | 'lt' | 'lte' | 'gt' | 'gte'
 
