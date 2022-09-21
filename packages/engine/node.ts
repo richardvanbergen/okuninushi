@@ -1,37 +1,49 @@
 import type { Field } from './field'
-import { parse, resolve } from './field'
-import type { ZodType } from 'zod'
+import { getReferences, isFormulaField, resolveFieldValue } from './field'
+import { z } from 'zod'
 
-async function validatedResolve(resolvedValue: unknown, validator?: ZodType) {
-  if (validator) {
-    return await validator.parseAsync(resolvedValue)
-  }
-
-  return resolvedValue
+type Node = {
+  ref: string
+  inputs: Node[]
+  fields: Map<string, Field>
 }
 
-export function createNode(name: string, inputs: Field[] = [], outputs: Field[] = []) {
-  async function resolveField(fieldList: Field[], name: string) {
-    const field = fieldList.find((input) => input.name === name)
-    if (field) {
-      if (field.type === 'formula') {
-        const parsed = parse(field)
-        if (parsed) {
-          const resolved = await resolve(parsed.ast)
-          return validatedResolve(resolved, field.validator)
-        }
-      } else {
-        return validatedResolve(field.value, field.validator)
-      }
-    }
+export function resolveNodeField(node: Node, fieldName: string) {
+  const field = node.fields.get(fieldName)
+  if (field) {
+    return resolveFieldValue(field, {})
   }
 
-  const resolveInputField = async (fieldName: string) => await resolveField(inputs, fieldName)
-  const resolveOutputField = async (fieldName: string) => await resolveField(outputs, fieldName)
+  return null
+}
+
+export function createNode(ref: string, fields: Field[] = [], inputs: Node[] = []) {
+  const references = fields.reduce(
+    (acc, field) => {
+      if (isFormulaField(field)) {
+        const refs = getReferences(field)
+        return [...acc, ...refs.map(ref => ref.value)]
+      }
+
+      return acc
+    },
+    [] as { identifier: string, subpath: string[] }[]
+  )
+
+  const nodeValidation = z.object({})
+  references.forEach(ref => {
+    nodeValidation.extend({
+      [ref.identifier]: z.object({})
+    })
+  })
+
+  const fieldMap = new Map<string, Field>()
+  fields.map(field => fieldMap.set(field.name, field))
 
   return {
-    name,
-    resolveInputField,
-    resolveOutputField
+    ref,
+    inputs,
+    fields: fieldMap,
+    validator: nodeValidation
   }
 }

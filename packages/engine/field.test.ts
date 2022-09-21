@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { createFormulaField, createValueField, getNodeList, getReferences, resolveFieldValue } from './field'
+import {
+  createFormulaField,
+  createValueField,
+  getNodeList,
+  getReferences,
+  isFormulaField,
+  resolveFieldValue
+} from './field'
 import { z, ZodError } from 'zod'
 
 describe('field', () => {
@@ -95,4 +102,13 @@ describe('field', () => {
     expect(references[0].value.identifier).toEqual('test')
     expect(references[0].value.subpath).toEqual(['subObject'])
   })
+
+  it('can test for a formula field type', () => {
+    const f1 = createFormulaField('name', '=1')
+    const f2 = createValueField('name', 1)
+    expect(isFormulaField(f1)).toBe(true)
+    expect(isFormulaField(f2)).toBe(false)
+  })
+
+  it.todo('should be able to validate the field name')
 })

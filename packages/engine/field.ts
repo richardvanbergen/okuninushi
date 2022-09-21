@@ -7,7 +7,7 @@ import { flatten } from './formula/ast'
 
 export type FieldType = 'value' | 'formula'
 
-interface Field {
+export interface Field {
   type: FieldType
   name: string
   value: unknown
@@ -31,6 +31,10 @@ export function getNodeList(field: FormulaField) {
 export function getReferences(field: FormulaField) {
   const nodeList = getNodeList(field)
   return nodeList.filter(node => isGrammarType<ParsedReference>(node, 'reference')) as ParsedReference[]
+}
+
+export function isFormulaField(field: Field): field is FormulaField {
+  return field.type === 'formula'
 }
 
 export function resolveFieldValue(field: Field, inputs?: Record<string, unknown>) {
