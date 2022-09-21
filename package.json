@@ -29,6 +29,7 @@
   "packageManager": "yarn@3.2.3",
   "dependencies": {
     "lodash": "^4.17.21",
-    "mathjs": "^11.2.1"
+    "mathjs": "^11.2.1",
+    "zod": "^3.19.1"
   }
 }

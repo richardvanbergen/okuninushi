@@ -160,6 +160,10 @@ export interface ParsedFormula extends ParsedGrammar {
   value: ParsedFormulaValue
 }
 
+export function isGrammar(value: unknown): value is ParsedGrammar {
+  return typeof value === 'object' && value !== null && 'type' in value
+}
+
 export function isGrammarType<T extends ParsedGrammar>(value: ParsedGrammar, type: GrammarType): value is T {
   return value.type === type
 }
@@ -170,7 +174,7 @@ export function isPrimitive(value: ParsedGrammar): value is ParsedPrimitive {
 
 export class IncompleteInputError extends Error {}
 
-export function parse(formula: string) {
+export function parse(formula: string): ParsedFormula | never {
   const parserTest = new Parser(Grammar.fromCompiled(grammar))
   const results = parserTest.feed(formula)?.results
 
@@ -186,7 +190,7 @@ export function parse(formula: string) {
     if (isGrammarType<ParsedFormula>(results?.[0]?.[0], 'formula')) {
       return results[0][0]
     }
-
-    throw new Error(`If you see this, please report a bug to the parser library with this input: ${formula}`)
   }
+
+  throw new Error(`If you see this, please report a bug to the parser library with this input: ${formula}`)
 }
