@@ -12,7 +12,12 @@ import { z, ZodError } from 'zod'
 describe('field', () => {
   it('should be able to set a name', () => {
     const f = createValueField('name', 'value')
-    expect(f.name).toBe('name')
+    expect(f.ref).toBe('name')
+  })
+
+  it('should have an immutable ref', () => {
+    const f = createValueField('name', 'value')
+    expect(f.id.toString()).toBe('Symbol(name)')
   })
 
   it('should be able to parse a formula', () => {
@@ -68,11 +73,10 @@ describe('field', () => {
   it('should be able to process inputs', async () => {
     const f = createFormulaField('name', '=1 + 2 + $test.subObject')
 
-    expect(await resolveFieldValue(f, {
-      test: {
-        subObject: 3
-      }
-    })).toBe(6)
+    const inputs = new Map<string, unknown>()
+    inputs.set('test', { subObject: 3 })
+
+    expect(await resolveFieldValue(f, inputs)).toBe(6)
   })
 
   it('should validate its output', () => {

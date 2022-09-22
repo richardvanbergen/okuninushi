@@ -9,12 +9,25 @@ describe('node', () => {
   })
 
   it('should be able to resolve a field in its input', async () => {
-    const node = createNode('test field', [
+    const node = createNode('test node', [
       createFormulaField('fieldName', '=1 + 2')
     ])
 
     expect(resolveNodeField(node, 'fieldName')).toBe(3)
   })
 
-  it.todo('should be able to resolve field inputs')
+  it('should be able to resolve field inputs', () => {
+    const node = createNode('test',
+      [
+        createFormulaField('testFieldName', '=$linkedNode.fieldName')
+      ],
+      [
+        createNode('linkedNode', [createFormulaField('fieldName', '=1 + 2')])
+      ],
+    )
+
+    expect(resolveNodeField(node, 'testFieldName')).toBe(3)
+  })
+
+  it.todo('should be able be able to validate inputs')
 })

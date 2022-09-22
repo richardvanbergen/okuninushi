@@ -49,7 +49,7 @@ export class FunctionError extends Error {
   }
 }
 
-export const createResultResolver = (inputValues: Record<string, unknown>) => {
+export const createResultResolver = (inputValues: Map<string, unknown>) => {
   return createResolver<unknown>({
     function: (name, params) => {
       const toRun = functions.get(name)
@@ -123,12 +123,14 @@ export const createResultResolver = (inputValues: Record<string, unknown>) => {
     boolean: (value) => value,
     primitive: (value) => value,
     reference: (identifier, subPaths) => {
-      let combine = [identifier]
-      if (subPaths && subPaths.length > 0) {
-        combine = [...combine, ...subPaths]
-      }
+      const input = inputValues.get(identifier)
+      if (input) {
+        if (subPaths && subPaths.length > 0) {
+          return get(input, subPaths)
+        }
 
-      return get(inputValues, combine)
+        return input
+      }
     },
   })
 }
